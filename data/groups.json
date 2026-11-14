@@ -1,0 +1,57 @@
+{
+  "YMW5FBBR": {
+    "name": "justiness",
+    "createdAt": 1794673586022,
+    "exclusions": [],
+    "members": [
+      {
+        "id": "dd2fbc10-2396-4a05-a3ab-b00f55f46de3",
+        "name": "mj",
+        "code": "LRYEH5ZD",
+        "targetId": "a45c52a1-2835-4233-8f99-8f5f1849fc02"
+      },
+      {
+        "id": "8ea3bb4e-a153-4717-92d0-ece06f16145f",
+        "name": "marc",
+        "code": "KV9XNJKR",
+        "targetId": "dddcd9b7-86fd-48a0-a0f1-c7b4289d5888"
+      },
+      {
+        "id": "ab358405-47d8-490a-b9f0-d5d51ccd2c56",
+        "name": "karel",
+        "code": "VA6NEXDV",
+        "targetId": "e5382d59-624c-42b7-ae05-aacdf150948c"
+      },
+      {
+        "id": "dddcd9b7-86fd-48a0-a0f1-c7b4289d5888",
+        "name": "angel",
+        "code": "V4YJ9CQS",
+        "targetId": "dd2fbc10-2396-4a05-a3ab-b00f55f46de3"
+      },
+      {
+        "id": "a45c52a1-2835-4233-8f99-8f5f1849fc02",
+        "name": "jules",
+        "code": "RR62J6PX",
+        "targetId": "55bad7d3-03ba-4e55-b364-cdf05665fc20"
+      },
+      {
+        "id": "e5382d59-624c-42b7-ae05-aacdf150948c",
+        "name": "aleen",
+        "code": "8RBU4E3M",
+        "targetId": "baef3c0c-2c13-4d68-bbc3-827c6f10e880"
+      },
+      {
+        "id": "baef3c0c-2c13-4d68-bbc3-827c6f10e880",
+        "name": "nice",
+        "code": "LMNB4ZVL",
+        "targetId": "ab358405-47d8-490a-b9f0-d5d51ccd2c56"
+      },
+      {
+        "id": "55bad7d3-03ba-4e55-b364-cdf05665fc20",
+        "name": "justine",
+        "code": "MVEYSP6T",
+        "targetId": "8ea3bb4e-a153-4717-92d0-ece06f16145f"
+      }
+    ]
+  }
+}

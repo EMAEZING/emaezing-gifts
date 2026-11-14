@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>EMAEzing Gifts — Secret Exchange</title>
+<meta name="theme-color" content="#050505" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
+
+<div class="bg-gradient"></div>
+<canvas id="bgCanvas" class="bg-canvas"></canvas>
+<canvas id="confetti" class="confetti" aria-hidden="true"></canvas>
+
+<div class="shell">
+  <header class="topbar">
+    <button class="brand" data-go="home" type="button">
+      <span class="brand-mark">✦</span>
+      <span class="brand-name">EMAEzing Gifts</span>
+    </button>
+    <nav class="topnav">
+      <button class="navlink" data-go="create" type="button">Create</button>
+      <button class="navlink" data-go="reveal" type="button">Reveal</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="view active" id="view-home">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <p class="eyebrow reveal">Exclusive Exchange</p>
+          <h1 class="reveal delay-1">Friend's <br><span class="serif italic gold">Exchange</span> Gift</h1>
+          <p class="lede reveal delay-2">A sophisticated, private way to draw names for your inner circle. No accounts, no public reveals. Just pure, confidential gifting.</p>
+          
+          <div class="hero-actions reveal delay-3">
+            <button class="btn btn-primary" data-go="create" type="button">Host an Exchange</button>
+            <button class="btn btn-text" data-go="reveal" type="button">I have a code ↗</button>
+          </div>
+          
+          <div class="host-login-wrap reveal delay-4">
+            <button class="btn btn-text fine-link" id="hostLoginBtn" type="button">
+              Already hosting? Access your panel ↗
+            </button>
+          </div>
+        </div>
+        
+        <!-- Interactive Gift Box -->
+        <div class="hero-visual reveal delay-2" id="giftClickTarget">
+          <div class="glow-ring" id="giftGlow"></div>
+          
+          <div class="gift-float" style="animation-duration:8s">
+            <div class="gift3d" id="heroGift" style="--s:180px;--c1:#1A1A1A;--c2:#050505;--ribbon:#D4AF37;--spin:20s">
+              <div class="face f-front"></div><div class="face f-back"></div>
+              <div class="face f-right"></div><div class="face f-left"></div>
+              <div class="face f-bottom"></div>
+              <div class="inner-light" id="innerLight"></div>
+              <div class="face f-top" id="giftLid"></div>
+              <div class="bow" id="giftBow"><span></span><span></span></div>
+            </div>
+          </div>
+
+          <!-- Tap Indicator -->
+          <div class="tap-indicator">👆 Tap to open</div>
+
+          <!-- SURPRISE ITEMS -->
+          <div class="gift-items">
+            <div class="pop-item item-1">👕</div>
+            <div class="pop-item item-2">👜</div>
+            <div class="pop-item item-3">💍</div>
+            <div class="pop-item item-4">🕶️</div>
+            <div class="pop-item item-5">⌚</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bento Grid Features (Now perfectly identical) -->
+      <div class="bento-grid">
+        <div class="bento-card reveal">
+          <span class="bento-num">01</span>
+          <h3>Curate your circle</h3>
+          <p>Add names, set custom exclusions (like couples), and let our algorithm handle the rest. Zero bias, total secrecy.</p>
+        </div>
+        <div class="bento-card reveal delay-1">
+          <span class="bento-num">02</span>
+          <h3>Private codes</h3>
+          <p>We generate unique 8-character codes for everyone. Send them via DM.</p>
+        </div>
+        <div class="bento-card reveal delay-2">
+          <span class="bento-num">03</span>
+          <h3>The reveal</h3>
+          <p>Enter your code to instantly unlock your secret match in a beautiful UI.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CREATE VIEW -->
+    <section class="view" id="view-create">
+      <div class="card glass-panel">
+        <h2 class="serif">Create an Exchange</h2>
+        <p class="sub">Setup your private gifting circle.</p>
+        
+        <label class="field">
+          <span class="field-label">Exchange Name</span>
+          <input type="text" id="groupName" placeholder="e.g., Justines" maxlength="60" autocomplete="off" />
+        </label>
+
+        <div class="section-head">
+          <span class="field-label">Participants</span>
+          <button class="btn btn-text" id="addMemberBtn" type="button">+ Add person</button>
+        </div>
+        <div class="member-list" id="memberList"></div>
+
+        <details class="exclusions">
+          <summary>Advanced: Prevent specific pairings</summary>
+          <p class="fine">Useful for couples or siblings who shouldn't draw each other.</p>
+          <div class="exclusion-form">
+            <select id="exA"></select><span class="ex-arrow">✕</span>
+            <select id="exB"></select>
+            <button class="btn btn-text" id="addExBtn" type="button">Add Rule</button>
+          </div>
+          <div class="exclusion-list" id="exclusionList"></div>
+        </details>
+
+        <button class="btn btn-primary btn-block mt-4" id="createBtn" type="button">Draw Names Securely</button>
+        <p class="error" id="createError" role="alert"></p>
+      </div>
+    </section>
+
+    <!-- ADMIN VIEW -->
+    <section class="view" id="view-admin">
+      <div class="card glass-panel">
+        <div class="admin-head">
+          <h2 id="adminGroupName" class="serif">—</h2>
+          <span class="pill" id="adminMemberCount">—</span>
+        </div>
+
+        <div class="code-hero">
+          <span class="code-label">Host Passcode</span>
+          <div class="code-big serif" id="adminCode">————</div>
+          <button class="btn btn-outline mt-2" id="copyAdminBtn" type="button">Copy Passcode</button>
+          <p class="fine">Keep this to access this panel later or manage the group.</p>
+        </div>
+
+        <div class="section-head mt-4">
+          <span class="field-label">Distribute Private Codes</span>
+          <button class="btn btn-text" id="copyAllBtn" type="button">Copy All</button>
+        </div>
+        <p class="fine">Send each person only their specific code.</p>
+        <div class="code-list" id="memberCodes"></div>
+
+        <div class="row mt-4">
+          <button class="btn btn-outline" id="redrawBtn" type="button">Redraw All</button>
+          <button class="btn btn-outline" id="addLateBtn" type="button">Add Late Joiner</button>
+        </div>
+        <div class="warning">Redrawing replaces everyone's current match.</div>
+      </div>
+    </section>
+
+    <!-- REVEAL VIEW -->
+    <section class="view" id="view-reveal">
+      <div class="card card-narrow glass-panel text-center">
+        <div class="lock-icon">✦</div>
+        <h2 class="serif">Enter Private Code</h2>
+        <p class="sub">Enter your 8-character passcode.</p>
+        <input type="text" id="codeInput" class="code-input" placeholder="XXXX-XXXX" maxlength="9" autocomplete="off" autocapitalize="characters" spellcheck="false" />
+        <button class="btn btn-primary btn-block mt-4" id="revealBtn" type="button">Reveal Match</button>
+        <p class="error" id="revealError" role="alert"></p>
+      </div>
+    </section>
+
+    <!-- RESULT VIEW -->
+    <section class="view" id="view-result">
+      <div class="card card-narrow result-card glass-panel">
+        <p class="result-eyebrow" id="resultGroup">—</p>
+        <p class="result-sub">Dear <span id="resultYou" class="gold">friend</span>, your gift is for</p>
+        <h2 class="result-name serif" id="resultTarget">—</h2>
+        <p class="fine">Strictly confidential. Do not share this screen.</p>
+        <button class="btn btn-outline btn-block mt-4" id="resultDone" type="button">Return Home</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>© EMAEzing Gifts. Crafted for the inner circle.</span>
+  </footer>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
