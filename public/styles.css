@@ -13,7 +13,15 @@
 }
 
 * { box-sizing: border-box; cursor: none; }
-html, body { height: 100%; margin: 0; }
+
+/* Added padding-top for mobile safe areas (notches/status bars) */
+html, body { 
+  height: 100%; 
+  margin: 0; 
+  padding-top: env(safe-area-inset-top); 
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
 body {
   font-family: var(--sans);
   background: var(--bg);
@@ -272,8 +280,28 @@ select option { background: var(--bg); color: var(--text); }
   .hero-actions { flex-direction: column; width: 100%; gap: 12px; margin-top: 30px; }
   .hero-actions .btn { width: 100%; padding: 16px 24px; }
 
-  .host-login-wrap { margin-top: 24px; padding: 16px; background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 12px; }
-  .fine-link { display: block; text-align: center; font-size: 14px; color: var(--gold); }
+  /* Centered and fixed the host-login-wrap */
+  .host-login-wrap { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px; 
+    padding: 18px 16px; 
+    background: rgba(255, 255, 255, 0.02); 
+    border: 1px dashed rgba(255, 255, 255, 0.2); 
+    border-radius: 12px; 
+  }
+  
+  .fine-link { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center; 
+    font-size: 14px; 
+    color: var(--gold); 
+    padding: 0;
+  }
 
   .hero-visual { margin-top: 50px; margin-bottom: 20px; }
   .gift3d { --s: 130px; }
