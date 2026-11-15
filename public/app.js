@@ -99,22 +99,64 @@ giftTarget.addEventListener('click', () => {
   }, 4000);
 });
 
-/* ---------- Host Login Logic ---------- */
-$('#hostLoginBtn').addEventListener('click', async () => {
-  const code = prompt("Enter your Host Passcode (e.g., XXXX-XXXX):");
-  if (!code) return;
+/* ---------- Host Login Modal Logic ---------- */
+const hostModal = $('#hostLoginModal');
+const hostCodeInput = $('#hostCodeInput');
+const hostLoginError = $('#hostLoginError');
+const submitHostBtn = $('#submitHostCodeBtn');
+
+$('#hostLoginBtn').addEventListener('click', () => {
+  hostModal.classList.add('active');
+  hostCodeInput.value = '';
+  hostLoginError.textContent = '';
+  setTimeout(() => hostCodeInput.focus(), 100);
+});
+
+$('#closeHostModal').addEventListener('click', () => {
+  hostModal.classList.remove('active');
+});
+
+hostModal.addEventListener('click', (e) => {
+  if (e.target === hostModal) hostModal.classList.remove('active');
+});
+
+hostCodeInput.addEventListener('input', () => {
+  const pos = hostCodeInput.selectionStart;
+  const before = hostCodeInput.value.length;
+  hostCodeInput.value = formatCodeInput(hostCodeInput.value);
+  const after = hostCodeInput.value.length;
+  hostCodeInput.setSelectionRange(Math.max(0, pos + (after - before)), Math.max(0, pos + (after - before)));
+});
+
+const handleHostLogin = async () => {
+  hostLoginError.textContent = '';
+  const code = hostCodeInput.value.replace(/[^A-Za-z0-9]/g, '');
   
-  const cleanCode = code.replace(/[^A-Za-z0-9]/g, '');
-  if (cleanCode.length < 8) return toast('Passcode must be 8 characters.');
+  if (code.length !== 8) { 
+    hostLoginError.textContent = 'Passcode must be 8 characters.'; 
+    return; 
+  }
+
+  submitHostBtn.disabled = true; 
+  submitHostBtn.textContent = 'Verifying…';
 
   try {
-    const data = await api('/api/groups/' + encodeURIComponent(cleanCode));
+    const data = await api('/api/groups/' + encodeURIComponent(code));
     renderAdmin(data);
     show('admin');
     toast('Welcome back to your panel.');
-  } catch (err) {
-    toast('Invalid host passcode.');
+    hostModal.classList.remove('active');
+  } catch (err) { 
+    hostLoginError.textContent = 'Invalid host passcode. Please try again.'; 
+  } finally { 
+    submitHostBtn.disabled = false; 
+    submitHostBtn.textContent = 'Access Panel'; 
   }
+};
+
+submitHostBtn.addEventListener('click', handleHostLogin);
+hostCodeInput.addEventListener('keydown', (e) => { 
+  if (e.key === 'Enter') handleHostLogin(); 
 });
 
 /* ---------- Form Logic ---------- */

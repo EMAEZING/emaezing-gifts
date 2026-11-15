@@ -56,14 +56,17 @@
         <div class="hero-visual reveal delay-2" id="giftClickTarget">
           <div class="glow-ring" id="giftGlow"></div>
           
-          <div class="gift-float" style="animation-duration:8s">
-            <div class="gift3d" id="heroGift" style="--s:180px;--c1:#1A1A1A;--c2:#050505;--ribbon:#D4AF37;--spin:20s">
-              <div class="face f-front"></div><div class="face f-back"></div>
-              <div class="face f-right"></div><div class="face f-left"></div>
-              <div class="face f-bottom"></div>
-              <div class="inner-light" id="innerLight"></div>
-              <div class="face f-top" id="giftLid"></div>
-              <div class="bow" id="giftBow"><span></span><span></span></div>
+          <!-- WRAPPER FOR THE SHRINKING EFFECT -->
+          <div class="gift-scale-wrapper">
+            <div class="gift-float" style="animation-duration:8s">
+              <div class="gift3d" id="heroGift" style="--s:180px;--c1:#1A1A1A;--c2:#050505;--ribbon:#D4AF37;--spin:20s">
+                <div class="face f-front"></div><div class="face f-back"></div>
+                <div class="face f-right"></div><div class="face f-left"></div>
+                <div class="face f-bottom"></div>
+                <div class="inner-light" id="innerLight"></div>
+                <div class="face f-top" id="giftLid"></div>
+                <div class="bow" id="giftBow"><span></span><span></span></div>
+              </div>
             </div>
           </div>
 
@@ -81,7 +84,7 @@
         </div>
       </div>
 
-      <!-- Bento Grid Features (Now perfectly identical) -->
+      <!-- Bento Grid Features -->
       <div class="bento-grid">
         <div class="bento-card reveal">
           <span class="bento-num">01</span>
@@ -109,7 +112,7 @@
         
         <label class="field">
           <span class="field-label">Exchange Name</span>
-          <input type="text" id="groupName" placeholder="e.g., Justines" maxlength="60" autocomplete="off" />
+          <input type="text" id="groupName" placeholder="e.g., The Midnight Society" maxlength="60" autocomplete="off" />
         </label>
 
         <div class="section-head">
@@ -191,6 +194,19 @@
   <footer class="footer">
     <span>© EMAEzing Gifts. Crafted for the inner circle.</span>
   </footer>
+</div>
+
+<!-- HOST LOGIN MODAL -->
+<div class="modal-overlay" id="hostLoginModal">
+  <div class="modal-content glass-panel">
+    <button class="modal-close" id="closeHostModal" type="button">✕</button>
+    <div class="lock-icon text-center">✦</div>
+    <h2 class="serif text-center">Host Access</h2>
+    <p class="sub text-center">Enter your Host Passcode to manage your exchange.</p>
+    <input type="text" id="hostCodeInput" class="code-input" placeholder="XXXX-XXXX" maxlength="9" autocomplete="off" autocapitalize="characters" spellcheck="false" />
+    <button class="btn btn-primary btn-block mt-4" id="submitHostCodeBtn" type="button">Access Panel</button>
+    <p class="error text-center" id="hostLoginError" role="alert"></p>
+  </div>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
